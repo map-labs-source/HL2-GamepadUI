@@ -100,6 +100,7 @@
 				"min"			"0.1"
 				"max"			"6.0"
 				"step"			"0.1"
+				"mouse_step"	"0.01"
 
 				"textprecision" "2"
 			}
@@ -139,6 +140,7 @@
 				"min"			"1.0"
 				"max"			"1.4"
 				"step"			"0.05"
+				"mouse_step"	"0.01"
 
 				"depends_on"	"m_customaccel"
 
@@ -161,6 +163,7 @@
 				"min"			"0.0"
 				"max"			"1.0"
 				"step"			"0.1"
+				"mouse_step"	"0.01"
 			}
 
 			"MusicSlider"
@@ -172,6 +175,7 @@
 				"min"			"0.0"
 				"max"			"1.0"
 				"step"			"0.1"
+				"mouse_step"	"0.01"
 			}
 
 			"SpeakerConfiguration"
@@ -442,6 +446,7 @@
 				"min"			"75"
 				"max"			"120"
 				"step"			"5"
+				"mouse_step"	"1"
 
 				"textprecision" "0"
 			}
