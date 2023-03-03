@@ -131,6 +131,28 @@ public:
 
         PaintText();
     }
+	
+    void ApplySchemeSettings( vgui::IScheme* pScheme )
+    {
+        BaseClass::ApplySchemeSettings( pScheme );
+
+        if (GamepadUI::GetInstance().GetScreenRatio() != 1.0f)
+        {
+            float flScreenRatio = GamepadUI::GetInstance().GetScreenRatio();
+
+            m_flHeight *= flScreenRatio;
+            for (int i = 0; i < ButtonStates::Count; i++)
+                m_flHeightAnimationValue[i] *= flScreenRatio;
+
+            // Also change the text offset
+            m_flTextOffsetY *= flScreenRatio;
+            for (int i = 0; i < ButtonStates::Count; i++)
+                m_flTextOffsetYAnimationValue[i] *= flScreenRatio;
+
+            SetSize( m_flWidth, m_flHeight + m_flExtraHeight );
+            DoAnimations( true );
+        }
+    }
 
     void NavigateTo() OVERRIDE
     {
@@ -315,6 +337,12 @@ void GamepadUINewGamePanel::OnThink()
 void GamepadUINewGamePanel::ApplySchemeSettings( vgui::IScheme* pScheme )
 {
     BaseClass::ApplySchemeSettings( pScheme );
+
+    if (GamepadUI::GetInstance().GetScreenRatio() != 1.0f)
+    {
+        float flScreenRatio = GamepadUI::GetInstance().GetScreenRatio();
+        m_ChapterOffsetX *= (flScreenRatio*flScreenRatio);
+    }
 
     m_pScrollBar->InitScrollBar( &m_ScrollState, m_ChapterOffsetX, m_ChapterOffsetY + m_pChapterButtons[0]->GetTall() + m_ChapterSpacing );
 }
