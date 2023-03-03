@@ -80,6 +80,14 @@ public:
 	
     float GetScreenRatio() const { return m_flScreenRatio; }
 
+#ifdef MAPBASE
+	void BonusMapChallengeNames( char *pchFileName, char *pchMapName, char *pchChallengeName ) OVERRIDE;
+	void BonusMapChallengeObjectives( int &iBronze, int &iSilver, int &iGold ) OVERRIDE;
+
+    void SetCurrentChallengeObjectives( int iBronze, int iSilver, int iGold );
+    void SetCurrentChallengeNames( const char *pszFileName, const char *pszMapName, const char *pszChallengeName );
+#endif
+
 private:
 
     IEngineSound            *m_pEngineSound            = NULL;
