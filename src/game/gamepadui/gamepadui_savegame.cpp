@@ -176,7 +176,7 @@ GamepadUISaveGamePanel::GamepadUISaveGamePanel( vgui::Panel* pParent, const char
 	: BaseClass( pParent, pPanelName )
 	, m_bIsSave( bIsSave )
 {
-    vgui::HScheme Scheme = vgui::scheme()->LoadSchemeFromFile( GAMEPADUI_DEFAULT_PANEL_SCHEME, "SchemePanel" );
+    vgui::HScheme Scheme = vgui::scheme()->LoadSchemeFromFileEx( GamepadUI::GetInstance().GetSizingVPanel(), GAMEPADUI_DEFAULT_PANEL_SCHEME, "SchemePanel" );
     SetScheme( Scheme );
 
     GetFrameTitle() = GamepadUIString(m_bIsSave ? "#GameUI_SaveGame" : "#GameUI_LoadGame");
@@ -219,6 +219,18 @@ void GamepadUISaveGamePanel::UpdateGradients()
 void GamepadUISaveGamePanel::ApplySchemeSettings( vgui::IScheme *pScheme )
 {
 	BaseClass::ApplySchemeSettings( pScheme );
+
+	int nX, nY;
+	GamepadUI::GetInstance().GetSizingPanelOffset( nX, nY );
+	if (nX > 0)
+	{
+		float flX, flY;
+		GamepadUI::GetInstance().GetSizingPanelScale( flX, flY );
+		flX *= 0.4f;
+
+		m_flSavesOffsetX += ((float)nX) * flX;
+		m_flSavesFade += ((float)nX) * flX;
+	}
 
 	if ( m_pScrollBar )
 	{
