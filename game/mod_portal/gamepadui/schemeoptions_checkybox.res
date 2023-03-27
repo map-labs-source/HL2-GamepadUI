@@ -32,6 +32,10 @@
 
 		"Button.Check.OffsetX"						"10"
 		"Button.Check.Height"						"18"
+		
+		"Button.Sound.Armed"					"ui/buttonrollover.wav"
+		"Button.Sound.Released"					"common/null.wav"
+		"Button.Sound.Depressed"				"physics/concrete/rock_impact_soft2.wav"
 	}
 
 	"Colors"

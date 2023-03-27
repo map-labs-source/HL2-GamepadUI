@@ -18,6 +18,11 @@
 
 		"Slider.Width"								"160"
 		"Slider.Height"								"11"
+		
+		"Slider.Sound.Adjust"					"physics/concrete/rock_impact_soft1.wav"
+		"Button.Sound.Armed"					"ui/buttonrollover.wav"
+		"Button.Sound.Released"					"common/null.wav"
+		"Button.Sound.Depressed"				"common/null.wav"
 	}
 
 	"Colors"
