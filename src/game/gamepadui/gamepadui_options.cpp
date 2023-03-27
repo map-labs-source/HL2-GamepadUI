@@ -2090,6 +2090,7 @@ void GamepadUIOptionsPanel::ApplySchemeSettings( vgui::IScheme* pScheme )
     {
         float flScreenRatio = GamepadUI::GetInstance().GetScreenRatio();
         m_flTabsOffsetX *= (flScreenRatio * flScreenRatio);
+        m_flScrollBarOffsetX *= (flScreenRatio);
     }
 }
 
