@@ -25,12 +25,17 @@
 		"Button.Description.OffsetX.Pressed"		"0"
 		"Button.Description.OffsetY.Pressed"		"-1"
 
-		"Button.Description.Hide.Out"				"1"
-		"Button.Description.Hide.Over"				"0"
-		"Button.Description.Hide.Pressed"			"0"
+		"Button.Description.Hide.Out"					"1"
+		"Button.Description.Hide.Over"					"1"
+		"Button.Description.Hide.Pressed"				"1"
+		"Button.Description.Hide.Animation.Duration"	"0"
 
 		"Button.Check.OffsetX"						"10"
 		"Button.Check.Height"						"18"
+		
+		"Button.Sound.Armed"					"ui/buttonrollover.wav"
+		"Button.Sound.Released"					"common/null.wav"
+		"Button.Sound.Depressed"				"physics/concrete/rock_impact_soft2.wav"
 	}
 
 	"Colors"

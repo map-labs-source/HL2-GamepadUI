@@ -11,13 +11,14 @@
 #define DEFAULT_BTN_ARMED_SOUND "ui/buttonrollover.wav"
 #define DEFAULT_BTN_RELEASED_SOUND "ui/buttonclickrelease.wav"
 
+ConVar gamepadui_center_footer_buttons( "gamepadui_center_footer_buttons", "1", FCVAR_NONE, "Centers footer buttons when not using gamepad" );
 
 GamepadUIButton::GamepadUIButton( vgui::Panel *pParent, vgui::Panel* pActionSignalTarget, const char *pSchemeFile, const char *pCommand, const char *pText, const char *pDescription )
     : BaseClass( pParent, "", "", pActionSignalTarget, pCommand )
     , m_strButtonText( pText )
     , m_strButtonDescription( pDescription )
 {
-    SetScheme(vgui::scheme()->LoadSchemeFromFile( pSchemeFile, "SchemePanel" ) );
+    SetScheme( vgui::scheme()->LoadSchemeFromFileEx( GamepadUI::GetInstance().GetSizingVPanel(), pSchemeFile, "SchemePanel" ) );
 }
 
 GamepadUIButton::GamepadUIButton( vgui::Panel *pParent, vgui::Panel* pActionSignalTarget, const char *pSchemeFile, const char *pCommand, const wchar_t *pText, const wchar_t *pDescription )
@@ -25,7 +26,7 @@ GamepadUIButton::GamepadUIButton( vgui::Panel *pParent, vgui::Panel* pActionSign
     , m_strButtonText( pText )
     , m_strButtonDescription( pDescription )
 {
-    SetScheme(vgui::scheme()->LoadSchemeFromFile( pSchemeFile, "SchemePanel" ) );
+    SetScheme( vgui::scheme()->LoadSchemeFromFileEx( GamepadUI::GetInstance().GetSizingVPanel(), pSchemeFile, "SchemePanel" ) );
 }
 
 void GamepadUIButton::ApplySchemeSettings(vgui::IScheme* pScheme)
@@ -69,6 +70,23 @@ void GamepadUIButton::ApplySchemeSettings(vgui::IScheme* pScheme)
             m_flCachedExtraHeight = DrawPrintWrappedText(m_hDescriptionFont, 0, 0, m_strButtonDescription.String(), m_strButtonDescription.Length(), m_flWidthAnimationValue[ButtonStates::Over] - 2 * (m_flDescriptionOffsetX + m_flTextOffsetX), false);
         else
             m_flCachedExtraHeight = 0.0f;
+    }
+	
+    float flX, flY;
+    if (GamepadUI::GetInstance().GetScreenRatio( flX, flY ))
+    {
+        if (flX != 1.0f)
+        {
+            m_flWidth *= flX;
+            for (int i = 0; i < ButtonStates::Count; i++)
+                m_flWidthAnimationValue[i] *= flX;
+        }
+        if (flY != 1.0f)
+        {
+            m_flHeight *= flY;
+            for (int i = 0; i < ButtonStates::Count; i++)
+                m_flHeightAnimationValue[i] *= flY;
+        }
     }
 
     SetSize( m_flWidth, m_flHeight + m_flExtraHeight );
@@ -175,7 +193,12 @@ int GamepadUIButton::PaintText()
             m_glyph.PaintGlyph( nGlyphPosX, nGlyphPosY, nGlyphSize, nAlpha );
         }
     }
+    else
 #endif // HL2_RETAIL
+	if (GetFooterButton() != FooterButtons::None && gamepadui_center_footer_buttons.GetBool() && !m_CenterX)
+    {
+        nTextPosX = m_flWidth / 2 - nTextSizeX / 2;
+    }
 
     if (!m_strButtonText.IsEmpty())
     {

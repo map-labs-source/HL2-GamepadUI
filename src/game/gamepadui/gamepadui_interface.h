@@ -31,6 +31,7 @@ class GamepadUIMainMenu;
 #define GAMEPADUI_RESOURCE_FOLDER "gamepadui" CORRECT_PATH_SEPARATOR_S
 
 class GamepadUIBasePanel;
+class GamepadUISizingPanel;
 
 class GamepadUI : public IGamepadUI
 {
@@ -44,6 +45,8 @@ public:
     void OnLevelInitializePreEntity() OVERRIDE;
     void OnLevelInitializePostEntity() OVERRIDE;
     void OnLevelShutdown() OVERRIDE;
+	
+    void VidInit() OVERRIDE;
 
     bool IsInLevel() const;
     bool IsInBackgroundLevel() const;
@@ -54,6 +57,8 @@ public:
     vgui::VPANEL GetRootVPanel() const;
     vgui::Panel *GetBasePanel() const;
     vgui::VPANEL GetBaseVPanel() const;
+    vgui::Panel *GetSizingPanel() const;
+    vgui::VPANEL GetSizingVPanel() const;
     vgui::Panel *GetMainMenuPanel() const;
     vgui::VPANEL GetMainMenuVPanel() const;
 
@@ -76,6 +81,19 @@ public:
 
     CSteamAPIContext* GetSteamAPIContext() { return &m_SteamAPIContext; }
 
+    bool GetScreenRatio( float &flX, float &flY ) const { flX = m_flScreenXRatio; flY = m_flScreenYRatio; return (flX != 1.0f || flY != 1.0f); }
+
+    void GetSizingPanelScale( float &flX, float &flY ) const;
+    void GetSizingPanelOffset( int &nX, int &nY ) const;
+
+#ifdef MAPBASE
+	void BonusMapChallengeNames( char *pchFileName, char *pchMapName, char *pchChallengeName ) OVERRIDE;
+	void BonusMapChallengeObjectives( int &iBronze, int &iSilver, int &iGold ) OVERRIDE;
+
+    void SetCurrentChallengeObjectives( int iBronze, int iSilver, int iGold );
+    void SetCurrentChallengeNames( const char *pszFileName, const char *pszMapName, const char *pszChallengeName );
+#endif
+
 private:
 
     IEngineSound            *m_pEngineSound            = NULL;
@@ -97,6 +115,17 @@ private:
     CSteamAPIContext m_SteamAPIContext;
 
     GamepadUIMainMenu* GetMainMenu() const;
+
+    float   m_flScreenXRatio = 1.0f;
+    float   m_flScreenYRatio = 1.0f;
+
+#ifdef MAPBASE
+    char	m_szChallengeFileName[MAX_PATH];
+    char	m_szChallengeMapName[48];
+    char	m_szChallengeName[48];
+
+    int		m_iBronze, m_iSilver, m_iGold;
+#endif
 
     static GamepadUI *s_pGamepadUI;
 };

@@ -43,7 +43,7 @@
 		"Achievements.Spacing"					"8"
 		"Achievements.Fade"						"48"
 
-		"Saves.OffsetX"							"210"
+		"Saves.OffsetX"							"187"
 		"Saves.OffsetY"							"120"
 		"Saves.Spacing"							"8"
 		"Saves.Fade"							"80"
@@ -148,6 +148,17 @@
 			{
 				"name"			"Noto Sans"
 				"tall"			"20"
+				"weight"		"400"
+				"antialias"		"1"
+			}
+		}
+
+		"BonusDesc.Font"
+		{
+			"settings"
+			{
+				"name"			"Noto Sans"
+				"tall"			"13"
 				"weight"		"400"
 				"antialias"		"1"
 			}
